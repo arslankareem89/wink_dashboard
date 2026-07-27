@@ -10,42 +10,114 @@ pipeline {
             }
         }
 
+
         stage('Install Dependencies') {
             steps {
-                sh 'flutter pub get'
+                sh '''
+                flutter pub get
+                '''
             }
         }
+
 
         stage('Test') {
             steps {
-                sh 'flutter test'
+                sh '''
+                flutter test
+                '''
             }
         }
+
 
         stage('Build Flutter Web') {
             steps {
-                sh 'flutter build web --release'
+                sh '''
+                flutter build web --release
+                '''
             }
         }
 
+
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t wink-dashboard .'
+                sh '''
+                docker build -t wink-dashboard .
+                '''
             }
         }
+
 
         stage('Deploy Container') {
             steps {
                 sh '''
+                echo "Stopping old container..."
+
                 docker stop wink-dashboard || true
                 docker rm wink-dashboard || true
+
+
+                echo "Starting new container..."
 
                 docker run -d \
                 --name wink-dashboard \
                 -p 8081:80 \
                 wink-dashboard
+
+
+                echo "Deployment completed successfully"
                 '''
             }
+        }
+
+
+        stage('Verify Deployment') {
+            steps {
+                sh '''
+                echo "Checking running containers..."
+
+                docker ps
+
+
+                echo ""
+                echo "Application URLs:"
+                echo "Jenkins:   http://localhost:8080"
+                echo "SonarQube: http://localhost:9000"
+                echo "Flutter:   http://localhost:8081"
+                '''
+            }
+        }
+    }
+
+
+    post {
+
+        success {
+            echo '''
+            =====================================
+            BUILD SUCCESSFUL
+            =====================================
+
+            Jenkins:
+            http://localhost:8080
+
+            SonarQube:
+            http://localhost:9000
+
+            Flutter Dashboard:
+            http://localhost:8081
+
+            =====================================
+            '''
+        }
+
+
+        failure {
+            echo '''
+            =====================================
+            BUILD FAILED
+            Check Jenkins logs
+            =====================================
+            '''
         }
     }
 }
