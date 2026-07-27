@@ -22,12 +22,22 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh '''
-                flutter test
-                '''
+                sh 'flutter test'
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh '''
+                    sonar-scanner \
+                    -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+                    -Dsonar.projectName=$SONAR_PROJECT_NAME \
+                    -Dsonar.sources=.
+                    '''
+                }
+            }
+        }
 
         stage('Build Flutter Web') {
             steps {
