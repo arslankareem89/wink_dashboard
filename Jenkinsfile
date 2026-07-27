@@ -27,17 +27,17 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh '''
-                    sonar-scanner \
-                    -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-                    -Dsonar.projectName=$SONAR_PROJECT_NAME \
-                    -Dsonar.sources=.
-                    '''
-                }
-            }
+    steps {
+        withSonarQubeEnv('sonarqube') {
+            sh '''
+            sonar-scanner \
+            -Dsonar.projectKey=wink-dashboard \
+            -Dsonar.projectName=wink-dashboard \
+            -Dsonar.sources=.
+            '''
         }
+    }
+}
 
         stage('Build Flutter Web') {
             steps {
