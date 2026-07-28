@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'homescreen.dart';
+import 'package:wink_dashboard/home_screen.dart';
+
+//fix the error package import
 void main() {
   runApp(const MyApp());
 }
@@ -37,12 +39,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
     Future.delayed(const Duration(seconds: 3), () {
       if (!mounted) return;
-    
-       Navigator.pushReplacement(
-       context,
-       MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ),
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     });
   }
@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderRadius: BorderRadius.circular(35),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.deepPurple.withOpacity(0.25),
+                        color: Colors.deepPurple.shade400,
                         blurRadius: 25,
                         spreadRadius: 2,
                         offset: const Offset(0, 12),
