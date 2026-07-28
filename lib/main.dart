@@ -36,11 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 3), () {
+      if (!mounted) return;
       // TODO:
-      // Replace SplashScreen() with your actual HomeScreen.
-      //
+      // Replace with your actual HomeScreen when ready
       // Example:
-      //
       // Navigator.pushReplacement(
       //   context,
       //   MaterialPageRoute(
