@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'homescreen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -37,15 +37,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
     Future.delayed(const Duration(seconds: 3), () {
       if (!mounted) return;
-      // TODO:
-      // Replace with your actual HomeScreen when ready
-      // Example:
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (context) => const HomeScreen(),
-      //   ),
-      // );
+    
+       Navigator.pushReplacement(
+       context,
+       MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        ),
+      );
     });
   }
 
