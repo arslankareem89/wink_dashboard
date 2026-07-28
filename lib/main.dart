@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wink_dashboard/home_screen.dart';
+import 'home_screen.dart';
 
-//fix the error package import
 void main() {
   runApp(const MyApp());
 }
@@ -25,7 +24,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
   final String title;
 
   @override
@@ -33,18 +31,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    super.initState();
-
-    Future.delayed(const Duration(seconds: 3), () {
-      if (!mounted) return;
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
-    });
+  void _goToHome() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
+    );
   }
 
   @override
@@ -80,9 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     size: 75,
                   ),
                 ),
-
                 const SizedBox(height: 35),
-
                 const Text(
                   "WINK",
                   style: TextStyle(
@@ -92,9 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.deepPurple,
                   ),
                 ),
-
                 const SizedBox(height: 10),
-
                 const Text(
                   "Connect • Chat • Smile",
                   style: TextStyle(
@@ -103,24 +90,74 @@ class _MyHomePageState extends State<MyHomePage> {
                     letterSpacing: 1,
                   ),
                 ),
+                const SizedBox(height: 80),
 
-                const SizedBox(height: 55),
-
+                // NEXT BUTTON INSTEAD OF PROGRESS
                 SizedBox(
-                  width: 45,
-                  height: 45,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 4,
-                    color: Colors.deepPurple,
-                    backgroundColor: Colors.deepPurple.shade100,
+                  width: double.infinity,
+                  height: 55,
+                  child: ElevatedButton(
+                    onPressed: _goToHome,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      elevation: 8,
+                      shadowColor: Colors.deepPurple.shade200,
+                    ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Next",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Icon(Icons.arrow_forward_rounded, size: 20),
+                      ],
+                    ),
                   ),
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 15),
 
-                const Text(
-                  "Loading...",
-                  style: TextStyle(fontSize: 15, color: Colors.grey),
+                // Small indicator dots like onboarding
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 24,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple.shade100,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple.shade100,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
