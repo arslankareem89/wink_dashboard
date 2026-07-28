@@ -1,19 +1,16 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wink_dashboard/main.dart';
 
 void main() {
-  testWidgets('App should build', (WidgetTester tester) async {
+  testWidgets('App should build and show splash', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
-    
-    // Just verify the app builds without crashing
-    expect(find.byType(MaterialApp), findsOneWidget);
+
+    expect(find.text('WINK'), findsOneWidget);
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+    // Important: advance clock to clear the Future.delayed timer
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pumpAndSettle();
   });
 }
